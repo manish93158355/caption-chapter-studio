@@ -3,9 +3,7 @@
  */
 
 // Global App Configuration
-const API_BASE_URL = window.location.port === '8080' 
-    ? '/api' 
-    : 'http://localhost:8080/api';
+const API_BASE_URL = '/api';
 
 const STORAGE_KEYS = {
     TOKEN: 'ccs_token',
@@ -252,8 +250,7 @@ function setStorageArray(key, arr) {
 }
 
 function getDefaultMockCaptions() {
-    return [
-        {
+    return [{
             id: 1,
             topic: "Next-Gen SaaS Launch",
             platform: "Instagram",
@@ -275,18 +272,16 @@ function getDefaultMockCaptions() {
 }
 
 function getDefaultMockChapters() {
-    return [
-        {
-            id: 1,
-            title: "Chapter 1: The Anatomy of Modern Digital Storytelling",
-            category: "Content Strategy",
-            description: "Understanding how narrative structure drives user engagement across digital interfaces.",
-            content: "<h2>The First Sentence Is Everything</h2><p>In an era characterized by micro-attention spans and infinite feeds, the traditional slow burn of long-form prose is rarely afforded grace. The reader must feel the heartbeat of your thesis within the first three seconds.</p><p>We define narrative velocity as the speed with which a thought travels from reader cognition into visceral emotion.</p><h3>The Triad of Resonance</h3><ul><li><strong>The Paradox:</strong> Challenge a deeply held conventional assumption.</li><li><strong>The Mirror:</strong> Reflect the unspoken struggle of your reader.</li><li><strong>The Resolution:</strong> Offer an actionable, disciplined path forward.</li></ul>",
-            favorite: true,
-            createdAt: new Date().toISOString(),
-            updatedAt: new Date().toISOString()
-        }
-    ];
+    return [{
+        id: 1,
+        title: "Chapter 1: The Anatomy of Modern Digital Storytelling",
+        category: "Content Strategy",
+        description: "Understanding how narrative structure drives user engagement across digital interfaces.",
+        content: "<h2>The First Sentence Is Everything</h2><p>In an era characterized by micro-attention spans and infinite feeds, the traditional slow burn of long-form prose is rarely afforded grace. The reader must feel the heartbeat of your thesis within the first three seconds.</p><p>We define narrative velocity as the speed with which a thought travels from reader cognition into visceral emotion.</p><h3>The Triad of Resonance</h3><ul><li><strong>The Paradox:</strong> Challenge a deeply held conventional assumption.</li><li><strong>The Mirror:</strong> Reflect the unspoken struggle of your reader.</li><li><strong>The Resolution:</strong> Offer an actionable, disciplined path forward.</li></ul>",
+        favorite: true,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+    }];
 }
 
 function generateMockCaption(req) {
@@ -412,9 +407,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Close sidebar when clicking outside on mobile
         document.addEventListener('click', (e) => {
-            if (window.innerWidth <= 768 && 
-                sidebar.classList.contains('open') && 
-                !sidebar.contains(e.target) && 
+            if (window.innerWidth <= 768 &&
+                sidebar.classList.contains('open') &&
+                !sidebar.contains(e.target) &&
                 !hamburgerBtn.contains(e.target)) {
                 sidebar.classList.remove('open');
             }
