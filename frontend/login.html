@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Caption & Chapter Studio</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <script>
+        (function() {
+            try {
+                const saved = localStorage.getItem('theme');
+                const theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+                document.documentElement.setAttribute('data-theme', theme);
+            } catch (e) {}
+        })();
+    </script>
+</head>
+<body>
+
+    <div class="auth-page-wrapper">
+        <div class="glass-card auth-card" style="position: relative;">
+            <div style="display: flex; justify-content: flex-end; margin-bottom: 0.75rem;">
+                <button type="button" class="theme-toggle-btn" aria-label="Toggle dark and light mode" title="Switch theme">
+                    <div class="theme-toggle-track">
+                        <span class="theme-icon">☀️</span>
+                        <span class="theme-icon">🌙</span>
+                        <span class="theme-toggle-thumb"></span>
+                    </div>
+                    <span class="theme-toggle-label">Dark Mode</span>
+                </button>
+            </div>
+
+            <div class="auth-header">
+                <a href="index.html" class="brand-logo" style="justify-content: center; margin-bottom: 1rem;">
+                    <div class="brand-icon">✨</div>
+                    <span>Caption & Chapter <span class="gradient-text">Studio</span></span>
+                </a>
+                <h2 class="auth-title">Welcome Back</h2>
+                <p style="font-size: 0.875rem;">Log in to access your creative studio and catalog</p>
+            </div>
+
+            <!-- Demo Account Quick Fill Banner -->
+            <div style="background: rgba(99, 102, 241, 0.12); border: 1px solid rgba(99, 102, 241, 0.3); border-radius: var(--radius-md); padding: 0.75rem 1rem; margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: space-between;">
+                <div style="font-size: 0.8125rem; color: var(--text-primary);">
+                    <strong>College/Demo Mode:</strong> Pre-seeded account
+                </div>
+                <button type="button" id="fill-demo-btn" class="btn btn-secondary btn-sm" style="font-size: 0.75rem; padding: 0.25rem 0.65rem;">
+                    Autofill Demo
+                </button>
+            </div>
+
+            <form id="login-form">
+                <div class="form-group">
+                    <label class="form-label" for="email">Email Address</label>
+                    <input type="email" id="email" class="form-input" placeholder="name@example.com" required autocomplete="email">
+                </div>
+
+                <div class="form-group">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.45rem;">
+                        <label class="form-label" for="password" style="margin-bottom: 0;">Password</label>
+                        <a href="javascript:void(0)" onclick="showToast('For evaluation/demo, use: Demo@1234 or create a new account', 'info')" style="font-size: 0.75rem; color: #818cf8;">Forgot password?</a>
+                    </div>
+                    <input type="password" id="password" class="form-input" placeholder="••••••••" required autocomplete="current-password">
+                </div>
+
+                <div class="form-group" style="display: flex; justify-content: space-between; align-items: center;">
+                    <label class="form-checkbox-label">
+                        <input type="checkbox" id="remember-me" class="form-checkbox">
+                        <span>Remember me for 30 days</span>
+                    </label>
+                </div>
+
+                <button type="submit" id="login-submit-btn" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;">
+                    Sign In
+                </button>
+            </form>
+
+            <div class="auth-footer">
+                Don't have an account yet? <a href="signup.html">Create an Account</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications Container -->
+    <div id="toast-container"></div>
+
+    <script src="js/theme.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>

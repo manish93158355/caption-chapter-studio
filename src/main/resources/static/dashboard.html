@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Caption & Chapter Studio</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <script>
+        (function() {
+            try {
+                const saved = localStorage.getItem('theme');
+                const theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+                document.documentElement.setAttribute('data-theme', theme);
+            } catch (e) {}
+        })();
+    </script>
+</head>
+<body>
+
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="app-sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="brand-logo">
+                    <div class="brand-icon">✨</div>
+                    <span style="font-size: 1.1rem;">C&C <span class="gradient-text">Studio</span></span>
+                </a>
+            </div>
+
+            <div class="sidebar-nav">
+                <span class="nav-section-title">Workspace</span>
+                <a href="dashboard.html" class="sidebar-link active">
+                    <span class="sidebar-icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="captions.html" class="sidebar-link">
+                    <span class="sidebar-icon">⚡</span>
+                    <span>Caption Generator</span>
+                </a>
+                <a href="chapters.html" class="sidebar-link">
+                    <span class="sidebar-icon">✍️</span>
+                    <span>Chapter Writer</span>
+                </a>
+
+                <span class="nav-section-title">My Content</span>
+                <a href="captions.html#library" class="sidebar-link">
+                    <span class="sidebar-icon">💬</span>
+                    <span>My Captions</span>
+                </a>
+                <a href="chapters.html#library" class="sidebar-link">
+                    <span class="sidebar-icon">📚</span>
+                    <span>My Chapters</span>
+                </a>
+                <a href="favorites.html" class="sidebar-link">
+                    <span class="sidebar-icon">⭐</span>
+                    <span>Favorites</span>
+                </a>
+
+                <span class="nav-section-title">Settings</span>
+                <a href="profile.html" class="sidebar-link">
+                    <span class="sidebar-icon">👤</span>
+                    <span>Profile & Account</span>
+                </a>
+                <a href="javascript:void(0)" class="sidebar-link btn-logout-action">
+                    <span class="sidebar-icon">🚪</span>
+                    <span>Sign Out</span>
+                </a>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="user-snippet">
+                    <div class="user-avatar">CC</div>
+                    <div class="user-info-text">
+                        <div class="user-info-name">Loading...</div>
+                        <div class="user-info-role">Creator Studio</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Body Wrapper -->
+        <div class="app-main">
+            <!-- Topbar Navigation -->
+            <header class="app-topbar">
+                <div class="topbar-left">
+                    <button class="hamburger-btn" aria-label="Toggle Navigation">☰</button>
+                    <h1 class="topbar-title">Dashboard Overview</h1>
+                </div>
+
+                <div class="topbar-right">
+                    <button type="button" class="theme-toggle-btn" aria-label="Toggle dark and light mode" title="Switch theme">
+                        <div class="theme-toggle-track">
+                            <span class="theme-icon">☀️</span>
+                            <span class="theme-icon">🌙</span>
+                            <span class="theme-toggle-thumb"></span>
+                        </div>
+                        <span class="theme-toggle-label">Dark Mode</span>
+                    </button>
+                    <a href="captions.html" class="btn btn-secondary btn-sm">+ New Caption</a>
+                    <a href="chapters.html" class="btn btn-primary btn-sm">+ New Chapter</a>
+                    <div class="user-avatar" style="cursor: pointer;" onclick="window.location.href='profile.html'">CC</div>
+                </div>
+            </header>
+
+            <!-- Main Dashboard Body -->
+            <main class="app-content">
+                <!-- Welcome Banner -->
+                <div class="page-header-bar">
+                    <div>
+                        <h2 id="user-greeting" style="font-size: 1.85rem; margin-bottom: 0.25rem;">Welcome back!</h2>
+                        <p class="page-subtitle">Here is what is happening across your content portfolio today.</p>
+                    </div>
+                </div>
+
+                <!-- 4 Statistics Cards -->
+                <div class="stats-grid">
+                    <div class="glass-card stat-card">
+                        <div class="stat-card-header">
+                            <span class="stat-card-title">Total Captions</span>
+                            <div class="stat-card-icon">⚡</div>
+                        </div>
+                        <div class="stat-value" id="stat-total-captions">0</div>
+                        <div class="stat-trend">Synthesized social posts</div>
+                    </div>
+
+                    <div class="glass-card stat-card">
+                        <div class="stat-card-header">
+                            <span class="stat-card-title">Total Chapters</span>
+                            <div class="stat-card-icon">📖</div>
+                        </div>
+                        <div class="stat-value" id="stat-total-chapters">0</div>
+                        <div class="stat-trend">Long-form written drafts</div>
+                    </div>
+
+                    <div class="glass-card stat-card">
+                        <div class="stat-card-header">
+                            <span class="stat-card-title">Favorites</span>
+                            <div class="stat-card-icon">⭐</div>
+                        </div>
+                        <div class="stat-value" id="stat-total-favorites">0</div>
+                        <div class="stat-trend">Bookmarked high-performers</div>
+                    </div>
+
+                    <div class="glass-card stat-card">
+                        <div class="stat-card-header">
+                            <span class="stat-card-title">Words Penned</span>
+                            <div class="stat-card-icon">🖋️</div>
+                        </div>
+                        <div class="stat-value" id="stat-total-words">0</div>
+                        <div class="stat-trend">Across all written chapters</div>
+                    </div>
+                </div>
+
+                <!-- Quick Studio Launcher -->
+                <div class="glass-card" style="padding: 1.75rem 2rem; border-radius: var(--radius-xl); margin-bottom: 2.25rem; background: linear-gradient(135deg, rgba(99, 102, 241, 0.12) 0%, rgba(139, 92, 246, 0.05) 100%);">
+                    <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.25rem;">
+                        <div>
+                            <h3 style="font-size: 1.35rem; margin-bottom: 0.35rem;">Ignite your next content piece</h3>
+                            <p style="font-size: 0.9375rem; color: var(--text-secondary);">Choose your format and generate compelling copy with precision tone targeting.</p>
+                        </div>
+                        <div style="display: flex; gap: 0.75rem;">
+                            <a href="captions.html" class="btn btn-primary">Generate Captions</a>
+                            <a href="chapters.html" class="btn btn-secondary">Write Long-Form</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity Split Grid -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 2rem;">
+                    <!-- Recent Captions Column -->
+                    <div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+                            <h3 style="font-size: 1.2rem;">Recent Captions</h3>
+                            <a href="captions.html" style="font-size: 0.8125rem; color: #818cf8; font-weight: 600;">View All →</a>
+                        </div>
+                        <div id="recent-captions-container">
+                            <div style="color: var(--text-muted); font-size: 0.875rem;">Loading recent captions...</div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Chapters Column -->
+                    <div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+                            <h3 style="font-size: 1.2rem;">Recent Chapters</h3>
+                            <a href="chapters.html" style="font-size: 0.8125rem; color: #818cf8; font-weight: 600;">View All →</a>
+                        </div>
+                        <div id="recent-chapters-container">
+                            <div style="color: var(--text-muted); font-size: 0.875rem;">Loading recent chapters...</div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Toast Notifications Container -->
+    <div id="toast-container"></div>
+
+    <script src="js/theme.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

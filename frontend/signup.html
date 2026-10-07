@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Caption & Chapter Studio</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <script>
+        (function() {
+            try {
+                const saved = localStorage.getItem('theme');
+                const theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+                document.documentElement.setAttribute('data-theme', theme);
+            } catch (e) {}
+        })();
+    </script>
+</head>
+<body>
+
+    <div class="auth-page-wrapper">
+        <div class="glass-card auth-card" style="position: relative;">
+            <div style="display: flex; justify-content: flex-end; margin-bottom: 0.75rem;">
+                <button type="button" class="theme-toggle-btn" aria-label="Toggle dark and light mode" title="Switch theme">
+                    <div class="theme-toggle-track">
+                        <span class="theme-icon">☀️</span>
+                        <span class="theme-icon">🌙</span>
+                        <span class="theme-toggle-thumb"></span>
+                    </div>
+                    <span class="theme-toggle-label">Dark Mode</span>
+                </button>
+            </div>
+
+            <div class="auth-header">
+                <a href="index.html" class="brand-logo" style="justify-content: center; margin-bottom: 1rem;">
+                    <div class="brand-icon">✨</div>
+                    <span>Caption & Chapter <span class="gradient-text">Studio</span></span>
+                </a>
+                <h2 class="auth-title">Create Your Account</h2>
+                <p style="font-size: 0.875rem;">Start generating viral copy and authoring chapters</p>
+            </div>
+
+            <form id="signup-form">
+                <div class="form-group">
+                    <label class="form-label" for="name">Full Name</label>
+                    <input type="text" id="name" class="form-input" placeholder="e.g. Alex Mercer" required autocomplete="name">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="email">Email Address</label>
+                    <input type="email" id="email" class="form-input" placeholder="name@example.com" required autocomplete="email">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="password">Password</label>
+                    <input type="password" id="password" class="form-input" placeholder="At least 6 characters" minlength="6" required autocomplete="new-password">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="confirm-password">Confirm Password</label>
+                    <input type="password" id="confirm-password" class="form-input" placeholder="Re-enter your password" minlength="6" required autocomplete="new-password">
+                </div>
+
+                <button type="submit" id="signup-submit-btn" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;">
+                    Create Studio Account
+                </button>
+            </form>
+
+            <div class="auth-footer">
+                Already have an account? <a href="login.html">Sign In Here</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications Container -->
+    <div id="toast-container"></div>
+
+    <script src="js/theme.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caption & Chapter Studio - Professional Content Creation Platform</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <script>
+        (function() {
+            try {
+                const saved = localStorage.getItem('theme');
+                const theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+                document.documentElement.setAttribute('data-theme', theme);
+            } catch (e) {}
+        })();
+    </script>
+</head>
+<body>
+
+    <!-- Top Navigation -->
+    <nav class="landing-navbar">
+        <div class="nav-container">
+            <a href="index.html" class="brand-logo">
+                <div class="brand-icon">✨</div>
+                <span>Caption & Chapter <span class="gradient-text">Studio</span></span>
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#features" class="nav-link">Features</a></li>
+                <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
+                <li><a href="#benefits" class="nav-link">Benefits</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <button type="button" class="theme-toggle-btn" aria-label="Toggle dark and light mode" title="Switch theme">
+                    <div class="theme-toggle-track">
+                        <span class="theme-icon">☀️</span>
+                        <span class="theme-icon">🌙</span>
+                        <span class="theme-toggle-thumb"></span>
+                    </div>
+                    <span class="theme-toggle-label">Dark Mode</span>
+                </button>
+                <a href="login.html" class="btn btn-ghost btn-sm">Login</a>
+                <a href="signup.html" class="btn btn-primary btn-sm">Sign Up</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="hero-pill">
+            <span>⚡ Next-Generation Creator Studio</span>
+        </div>
+
+        <h1 class="hero-heading">
+            Create Words That <br>
+            <span class="gradient-text">Tell Your Story.</span>
+        </h1>
+
+        <p class="hero-subtitle">
+            An advanced platform designed for modern creators. Generate high-converting social media captions, compose structured long-form chapters, and organize your creative catalog in one intuitive workspace.
+        </p>
+
+        <div class="hero-cta-group">
+            <a href="signup.html" class="btn btn-primary btn-lg">Start Creating Free</a>
+            <a href="#interactive-demo" class="btn btn-secondary btn-lg">Try Live Demo</a>
+        </div>
+
+        <!-- Live Interactive Preview Box -->
+        <div id="interactive-demo" class="preview-mockup">
+            <div class="mockup-header">
+                <div class="mockup-dots">
+                    <span class="mockup-dot red"></span>
+                    <span class="mockup-dot yellow"></span>
+                    <span class="mockup-dot green"></span>
+                </div>
+                <span style="font-size: 0.8125rem; color: var(--text-muted); font-family: var(--font-mono);">
+                    studio-preview.engine.java
+                </span>
+                <span class="badge badge-platform-instagram">Instagram Ready</span>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr; gap: 1rem;">
+                <div style="background: rgba(255, 255, 255, 0.02); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+                    <div style="display: flex; gap: 0.5rem; margin-bottom: 0.85rem; align-items: center;">
+                        <span class="badge badge-tone">Professional</span>
+                        <span style="font-size: 0.8125rem; color: var(--text-muted);">Topic: "New Product Launch"</span>
+                    </div>
+                    <p style="font-size: 0.95rem; color: var(--text-primary); line-height: 1.6; margin-bottom: 0.75rem;">
+                        “Something extraordinary has arrived. Designed with meticulous attention to detail and built for creators who expect nothing less than perfection. Ready to take your content workflow into the next dimension?”
+                    </p>
+                    <div style="display: flex; gap: 0.4rem; flex-wrap: wrap;">
+                        <span class="hashtag-pill">#ProductLaunch</span>
+                        <span class="hashtag-pill">#SaaSInnovation</span>
+                        <span class="hashtag-pill">#ContentCreation</span>
+                        <span class="hashtag-pill">#CreatorEconomy</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features-section">
+        <div class="section-header">
+            <span class="section-tag">Core Capabilities</span>
+            <h2 class="section-title">Engineered for Creative Depth & Velocity</h2>
+            <p class="section-description">
+                Everything you need to craft punchy viral copy and articulate thought-leadership chapters in a single cohesive workspace.
+            </p>
+        </div>
+
+        <div class="features-grid">
+            <div class="glass-card feature-card">
+                <div class="feature-icon-wrapper">🎯</div>
+                <h3>Intelligent Caption Studio</h3>
+                <p>Tailor hooks, bodies, and call-to-actions tailored precisely for Instagram, LinkedIn, YouTube, Facebook, and Twitter/X.</p>
+            </div>
+
+            <div class="glass-card feature-card">
+                <div class="feature-icon-wrapper">📖</div>
+                <h3>Long-Form Chapter Writer</h3>
+                <p>Rich WYSIWYG editor with live word counting, character tracking, read-time estimations, and semantic formatting tools.</p>
+            </div>
+
+            <div class="glass-card feature-card">
+                <div class="feature-icon-wrapper">🏷️</div>
+                <h3>Smart Hashtag Generator</h3>
+                <p>Automatically derives high-conversion, relevant hashtags based on contextual keywords and platform algorithms.</p>
+            </div>
+
+            <div class="glass-card feature-card">
+                <div class="feature-icon-wrapper">⭐</div>
+                <h3>Centralized Favorites Hub</h3>
+                <p>Bookmark your best-performing captions and chapters for instant reuse, iterative repurposing, and fast clipboard export.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="how-it-works-section">
+        <div class="section-header">
+            <span class="section-tag">Simple Workflow</span>
+            <h2 class="section-title">From Spark to Published Piece in Seconds</h2>
+            <p class="section-description">
+                A streamlined three-step workflow designed to eliminate writer's block and accelerate production.
+            </p>
+        </div>
+
+        <div class="steps-grid">
+            <div class="glass-card step-card">
+                <div class="step-number">01</div>
+                <h3 style="margin-bottom: 0.5rem;">Select Platform & Tone</h3>
+                <p>Define your destination—from LinkedIn thought-pieces to punchy Twitter one-liners—and match your audience's mood.</p>
+            </div>
+
+            <div class="glass-card step-card">
+                <div class="step-number">02</div>
+                <h3 style="margin-bottom: 0.5rem;">Generate & Refine</h3>
+                <p>Receive structured copy variations, tweak nuances in the live editor, and generate targeted hashtag clusters.</p>
+            </div>
+
+            <div class="glass-card step-card">
+                <div class="step-number">03</div>
+                <h3 style="margin-bottom: 0.5rem;">Organize & Deploy</h3>
+                <p>Save to your persistent cloud library, copy formatted text with a single click, or catalog into narrative chapters.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section id="benefits" class="benefits-section">
+        <div class="glass-card" style="padding: 3.5rem 2.5rem; text-align: center; border-radius: var(--radius-xl); background: linear-gradient(180deg, rgba(99, 102, 241, 0.08) 0%, rgba(14, 19, 31, 0.8) 100%);">
+            <span class="section-tag">Empowering Modern Writers</span>
+            <h2 style="font-size: 2.25rem; margin-bottom: 1.25rem;">Unlock Complete Narrative Freedom</h2>
+            <p style="max-width: 650px; margin: 0 auto 2.5rem; font-size: 1.05rem;">
+                Whether you are managing multi-channel social growth or authoring in-depth digital books, Caption & Chapter Studio gives you the clarity to write at scale.
+            </p>
+            <a href="signup.html" class="btn btn-primary btn-lg">Get Started in Seconds</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="landing-footer">
+        <div class="footer-content">
+            <div class="brand-logo">
+                <div class="brand-icon">✨</div>
+                <span>Caption & Chapter <span class="gradient-text">Studio</span></span>
+            </div>
+            <p style="color: var(--text-muted); font-size: 0.875rem; max-width: 500px;">
+                Full-Stack Content Architecture Platform powered by Java Spring Boot, REST APIs, and modern responsive frontend technology.
+            </p>
+            <div class="footer-copy">
+                &copy; 2026 Caption & Chapter Studio. Designed for Excellence.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container"></div>
+
+    <script src="js/theme.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

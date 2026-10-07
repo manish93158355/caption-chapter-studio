@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favorites - Caption & Chapter Studio</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <script>
+        (function() {
+            try {
+                const saved = localStorage.getItem('theme');
+                const theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+                document.documentElement.setAttribute('data-theme', theme);
+            } catch (e) {}
+        })();
+    </script>
+</head>
+<body>
+
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="app-sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="brand-logo">
+                    <div class="brand-icon">✨</div>
+                    <span style="font-size: 1.1rem;">C&C <span class="gradient-text">Studio</span></span>
+                </a>
+            </div>
+
+            <div class="sidebar-nav">
+                <span class="nav-section-title">Workspace</span>
+                <a href="dashboard.html" class="sidebar-link">
+                    <span class="sidebar-icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="captions.html" class="sidebar-link">
+                    <span class="sidebar-icon">⚡</span>
+                    <span>Caption Generator</span>
+                </a>
+                <a href="chapters.html" class="sidebar-link">
+                    <span class="sidebar-icon">✍️</span>
+                    <span>Chapter Writer</span>
+                </a>
+
+                <span class="nav-section-title">My Content</span>
+                <a href="captions.html#library" class="sidebar-link">
+                    <span class="sidebar-icon">💬</span>
+                    <span>My Captions</span>
+                </a>
+                <a href="chapters.html#library" class="sidebar-link">
+                    <span class="sidebar-icon">📚</span>
+                    <span>My Chapters</span>
+                </a>
+                <a href="favorites.html" class="sidebar-link active">
+                    <span class="sidebar-icon">⭐</span>
+                    <span>Favorites</span>
+                </a>
+
+                <span class="nav-section-title">Settings</span>
+                <a href="profile.html" class="sidebar-link">
+                    <span class="sidebar-icon">👤</span>
+                    <span>Profile & Account</span>
+                </a>
+                <a href="javascript:void(0)" class="sidebar-link btn-logout-action">
+                    <span class="sidebar-icon">🚪</span>
+                    <span>Sign Out</span>
+                </a>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="user-snippet">
+                    <div class="user-avatar">CC</div>
+                    <div class="user-info-text">
+                        <div class="user-info-name">Loading...</div>
+                        <div class="user-info-role">Creator Studio</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Body -->
+        <div class="app-main">
+            <!-- Topbar -->
+            <header class="app-topbar">
+                <div class="topbar-left">
+                    <button class="hamburger-btn" aria-label="Toggle Navigation">☰</button>
+                    <h1 class="topbar-title">Starred Favorites</h1>
+                </div>
+
+                <div class="topbar-right">
+                    <button type="button" class="theme-toggle-btn" aria-label="Toggle dark and light mode" title="Switch theme">
+                        <div class="theme-toggle-track">
+                            <span class="theme-icon">☀️</span>
+                            <span class="theme-icon">🌙</span>
+                            <span class="theme-toggle-thumb"></span>
+                        </div>
+                        <span class="theme-toggle-label">Dark Mode</span>
+                    </button>
+                    <a href="captions.html" class="btn btn-secondary btn-sm">+ Generate</a>
+                    <div class="user-avatar" style="cursor: pointer;" onclick="window.location.href='profile.html'">CC</div>
+                </div>
+            </header>
+
+            <main class="app-content">
+                <div class="page-header-bar">
+                    <div>
+                        <h2 style="font-size: 1.75rem; margin-bottom: 0.25rem;">Your Curated Best</h2>
+                        <p class="page-subtitle">Quick access to all captions and chapters you’ve highlighted for high performance.</p>
+                    </div>
+                </div>
+
+                <!-- Tabs -->
+                <div class="tab-nav">
+                    <button type="button" class="tab-btn active" data-tab="all">All Favorites (<span id="count-all">0</span>)</button>
+                    <button type="button" class="tab-btn" data-tab="captions">Captions (<span id="count-captions">0</span>)</button>
+                    <button type="button" class="tab-btn" data-tab="chapters">Chapters (<span id="count-chapters">0</span>)</button>
+                </div>
+
+                <!-- Favorites Grid Container -->
+                <div id="favorites-container" class="cards-grid">
+                    <div style="color: var(--text-muted); font-size: 0.875rem;">Loading favorites...</div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Chapter Reader Modal -->
+    <div id="fav-reader-modal" class="modal-backdrop">
+        <div class="modal-container" style="max-width: 800px;">
+            <div class="modal-header">
+                <div>
+                    <span id="fav-reader-category" class="badge badge-category" style="margin-bottom: 0.35rem;">Category</span>
+                    <h2 id="fav-reader-title" style="font-size: 1.65rem; color: #ffffff;">Chapter Title</h2>
+                </div>
+                <button type="button" class="modal-close" onclick="closeFavReaderModal()">&times;</button>
+            </div>
+            <div id="fav-reader-content" style="line-height: 1.8; font-size: 1.05rem; color: var(--text-primary); margin-top: 1.5rem; border-top: 1px solid var(--border-subtle); padding-top: 1.5rem;"></div>
+            <div style="display: flex; justify-content: flex-end; margin-top: 2rem;">
+                <button type="button" class="btn btn-secondary" onclick="closeFavReaderModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications Container -->
+    <div id="toast-container"></div>
+
+    <script src="js/theme.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        let favCaptions = [];
+        let favChapters = [];
+        let activeTab = 'all';
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (!requireAuth()) return;
+
+            setupTabListeners();
+            await loadAllFavorites();
+        });
+
+        function setupTabListeners() {
+            const tabs = document.querySelectorAll('.tab-btn');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    activeTab = tab.getAttribute('data-tab');
+                    renderActiveTab();
+                });
+            });
+        }
+
+        async function loadAllFavorites() {
+            try {
+                const [capRes, chapRes] = await Promise.all([
+                    apiCall('/captions?favorite=true', 'GET'),
+                    apiCall('/chapters?favorite=true', 'GET')
+                ]);
+
+                if (capRes.success) {
+                    favCaptions = (capRes.data || []).filter(c => c.favorite);
+                }
+                if (chapRes.success) {
+                    favChapters = (chapRes.data || []).filter(c => c.favorite);
+                }
+
+                document.getElementById('count-captions').textContent = favCaptions.length;
+                document.getElementById('count-chapters').textContent = favChapters.length;
+                document.getElementById('count-all').textContent = favCaptions.length + favChapters.length;
+
+                renderActiveTab();
+            } catch (err) {
+                console.error(err);
+                showToast('Could not load favorites', 'error');
+            }
+        }
+
+        function renderActiveTab() {
+            const container = document.getElementById('favorites-container');
+            if (!container) return;
+
+            let itemsHtml = [];
+
+            if (activeTab === 'all' || activeTab === 'captions') {
+                favCaptions.forEach(c => {
+                    const platformClass = (c.platform || 'instagram').toLowerCase().replace('/', '');
+                    itemsHtml.push(`
+                        <div class="glass-card caption-card">
+                            <div class="card-top">
+                                <div class="card-badges">
+                                    <span class="badge badge-platform-${platformClass}">${c.platform}</span>
+                                    <span class="badge badge-tone">${c.tone}</span>
+                                </div>
+                                <button class="fav-btn active" onclick="unfavoriteCaption(${c.id})" title="Remove from favorites">★</button>
+                            </div>
+                            <h4 style="font-size: 1rem; margin-bottom: 0.5rem; color: #ffffff;">${escapeHtml(c.topic)}</h4>
+                            <div class="card-content-text">${escapeHtml(c.content)}</div>
+                            <div class="card-footer-bar">
+                                <span style="font-size: 0.75rem;">Caption • ${formatDate(c.createdAt)}</span>
+                                <button class="btn btn-secondary btn-sm" onclick="copyToClipboard(\`${escapeAttr(c.content)}\`)">Copy</button>
+                            </div>
+                        </div>
+                    `);
+                });
+            }
+
+            if (activeTab === 'all' || activeTab === 'chapters') {
+                favChapters.forEach(ch => {
+                    const plainText = (ch.content || '').replace(/<[^>]*>/g, ' ');
+                    const wordCount = plainText.trim().split(/\s+/).filter(Boolean).length;
+                    itemsHtml.push(`
+                        <div class="glass-card chapter-card">
+                            <div class="card-top">
+                                <span class="badge badge-category">${escapeHtml(ch.category || 'General')}</span>
+                                <button class="fav-btn active" onclick="unfavoriteChapter(${ch.id})" title="Remove from favorites">★</button>
+                            </div>
+                            <div>
+                                <h3 style="font-size: 1.15rem; margin-bottom: 0.4rem; color: #ffffff;">${escapeHtml(ch.title)}</h3>
+                                <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
+                                    ${escapeHtml(ch.description || plainText)}
+                                </p>
+                            </div>
+                            <div class="card-footer-bar">
+                                <span>Chapter • ${wordCount} words</span>
+                                <button class="btn btn-secondary btn-sm" onclick="openFavReaderModal(${ch.id})">Open</button>
+                            </div>
+                        </div>
+                    `);
+                });
+            }
+
+            if (itemsHtml.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">⭐</div>
+                        <h3 class="empty-state-title">No favorites yet</h3>
+                        <p class="empty-state-text">Star your best captions in the Caption Studio or long-form chapters to access them here instantly.</p>
+                        <a href="captions.html" class="btn btn-primary btn-sm">Explore Studio</a>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = itemsHtml.join('');
+            }
+        }
+
+        async function unfavoriteCaption(id) {
+            try {
+                await apiCall(`/captions/${id}/favorite`, 'PUT');
+                favCaptions = favCaptions.filter(c => c.id !== id);
+                document.getElementById('count-captions').textContent = favCaptions.length;
+                document.getElementById('count-all').textContent = favCaptions.length + favChapters.length;
+                renderActiveTab();
+                showToast('Removed from favorites', 'info');
+            } catch (err) {
+                showToast('Error updating favorite', 'error');
+            }
+        }
+
+        async function unfavoriteChapter(id) {
+            try {
+                await apiCall(`/chapters/${id}/favorite`, 'PUT');
+                favChapters = favChapters.filter(c => c.id !== id);
+                document.getElementById('count-chapters').textContent = favChapters.length;
+                document.getElementById('count-all').textContent = favCaptions.length + favChapters.length;
+                renderActiveTab();
+                showToast('Removed from favorites', 'info');
+            } catch (err) {
+                showToast('Error updating favorite', 'error');
+            }
+        }
+
+        function openFavReaderModal(id) {
+            const ch = favChapters.find(c => c.id === id);
+            if (!ch) return;
+            document.getElementById('fav-reader-title').textContent = ch.title;
+            document.getElementById('fav-reader-category').textContent = ch.category || 'General';
+            document.getElementById('fav-reader-content').innerHTML = ch.content;
+            document.getElementById('fav-reader-modal').classList.add('active');
+        }
+
+        function closeFavReaderModal() {
+            document.getElementById('fav-reader-modal').classList.remove('active');
+        }
+
+        function formatDate(dateStr) {
+            if (!dateStr) return 'Recently';
+            return new Date(dateStr).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+        }
+
+        function escapeAttr(str) {
+            if (!str) return '';
+            return str.replace(/\\/g, '\\\\').replace(/`/g, '\\`').replace(/\$/g, '\\$');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caption Generator & Library - Caption & Chapter Studio</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <script>
+        (function() {
+            try {
+                const saved = localStorage.getItem('theme');
+                const theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+                document.documentElement.setAttribute('data-theme', theme);
+            } catch (e) {}
+        })();
+    </script>
+</head>
+<body>
+
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="app-sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="brand-logo">
+                    <div class="brand-icon">✨</div>
+                    <span style="font-size: 1.1rem;">C&C <span class="gradient-text">Studio</span></span>
+                </a>
+            </div>
+
+            <div class="sidebar-nav">
+                <span class="nav-section-title">Workspace</span>
+                <a href="dashboard.html" class="sidebar-link">
+                    <span class="sidebar-icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="captions.html" class="sidebar-link active">
+                    <span class="sidebar-icon">⚡</span>
+                    <span>Caption Generator</span>
+                </a>
+                <a href="chapters.html" class="sidebar-link">
+                    <span class="sidebar-icon">✍️</span>
+                    <span>Chapter Writer</span>
+                </a>
+
+                <span class="nav-section-title">My Content</span>
+                <a href="#library" class="sidebar-link">
+                    <span class="sidebar-icon">💬</span>
+                    <span>My Captions</span>
+                </a>
+                <a href="chapters.html#library" class="sidebar-link">
+                    <span class="sidebar-icon">📚</span>
+                    <span>My Chapters</span>
+                </a>
+                <a href="favorites.html" class="sidebar-link">
+                    <span class="sidebar-icon">⭐</span>
+                    <span>Favorites</span>
+                </a>
+
+                <span class="nav-section-title">Settings</span>
+                <a href="profile.html" class="sidebar-link">
+                    <span class="sidebar-icon">👤</span>
+                    <span>Profile & Account</span>
+                </a>
+                <a href="javascript:void(0)" class="sidebar-link btn-logout-action">
+                    <span class="sidebar-icon">🚪</span>
+                    <span>Sign Out</span>
+                </a>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="user-snippet">
+                    <div class="user-avatar">CC</div>
+                    <div class="user-info-text">
+                        <div class="user-info-name">Loading...</div>
+                        <div class="user-info-role">Creator Studio</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Body -->
+        <div class="app-main">
+            <!-- Topbar -->
+            <header class="app-topbar">
+                <div class="topbar-left">
+                    <button class="hamburger-btn" aria-label="Toggle Navigation">☰</button>
+                    <h1 class="topbar-title">Caption Studio</h1>
+                </div>
+
+                <div class="topbar-right">
+                    <button type="button" class="theme-toggle-btn" aria-label="Toggle dark and light mode" title="Switch theme">
+                        <div class="theme-toggle-track">
+                            <span class="theme-icon">☀️</span>
+                            <span class="theme-icon">🌙</span>
+                            <span class="theme-toggle-thumb"></span>
+                        </div>
+                        <span class="theme-toggle-label">Dark Mode</span>
+                    </button>
+                    <a href="#library" class="btn btn-secondary btn-sm">Jump to Library ↓</a>
+                    <div class="user-avatar" style="cursor: pointer;" onclick="window.location.href='profile.html'">CC</div>
+                </div>
+            </header>
+
+            <main class="app-content">
+                <!-- Section 1: Generator Workspace -->
+                <div class="page-header-bar">
+                    <div>
+                        <h2 style="font-size: 1.75rem; margin-bottom: 0.25rem;">Intelligent Caption Generator</h2>
+                        <p class="page-subtitle">Formulate high-impact social copy tuned to target platforms and audience psychology.</p>
+                    </div>
+                </div>
+
+                <div class="generator-grid" style="margin-bottom: 4rem;">
+                    <!-- Configuration Panel -->
+                    <div class="glass-card config-panel">
+                        <div class="form-group">
+                            <label class="form-label" for="caption-topic">What is your post about?</label>
+                            <input type="text" id="caption-topic" class="form-input" placeholder="e.g. New Product Launch, 5 Productivity Tips, Morning Coffee Routine..." required>
+                        </div>
+
+                        <!-- Platform Selector -->
+                        <div class="form-group">
+                            <label class="form-label">Target Platform</label>
+                            <div class="platform-selector">
+                                <label class="platform-radio-label selected">
+                                    <input type="radio" name="platform" value="Instagram" checked>
+                                    <span>📸 Instagram</span>
+                                </label>
+                                <label class="platform-radio-label">
+                                    <input type="radio" name="platform" value="LinkedIn">
+                                    <span>💼 LinkedIn</span>
+                                </label>
+                                <label class="platform-radio-label">
+                                    <input type="radio" name="platform" value="Twitter/X">
+                                    <span>🐦 Twitter/X</span>
+                                </label>
+                                <label class="platform-radio-label">
+                                    <input type="radio" name="platform" value="YouTube">
+                                    <span>🎬 YouTube</span>
+                                </label>
+                                <label class="platform-radio-label">
+                                    <input type="radio" name="platform" value="Facebook">
+                                    <span>👥 Facebook</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Tone Selector & Length -->
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.25rem; margin-bottom: 1.25rem;">
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label class="form-label" for="caption-tone">Tone & Style</label>
+                                <select id="caption-tone" class="form-select">
+                                    <option value="Professional" selected>Professional & Authoritative</option>
+                                    <option value="Motivational">Motivational & Energizing</option>
+                                    <option value="Funny">Funny & Witty</option>
+                                    <option value="Emotional">Emotional & Heartfelt</option>
+                                    <option value="Casual">Casual & Conversational</option>
+                                    <option value="Luxury">Luxury & Minimalist</option>
+                                    <option value="Gen-Z">Gen-Z (Trendy, Slang & Vibes)</option>
+                                    <option value="Cinematic">Cinematic (Epic & Visual Mood)</option>
+                                    <option value="Storytelling">Storytelling (Narrative Journey)</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label class="form-label">Caption Length</label>
+                                <div class="length-segmented-control">
+                                    <button type="button" class="segment-btn" data-value="Short">Short</button>
+                                    <button type="button" class="segment-btn active" data-value="Medium">Medium</button>
+                                    <button type="button" class="segment-btn" data-value="Long">Long</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Hashtag Option -->
+                        <div class="form-group">
+                            <label class="form-checkbox-label">
+                                <input type="checkbox" id="include-hashtags" class="form-checkbox" checked>
+                                <span>Automatically generate relevant high-traffic hashtags</span>
+                            </label>
+                        </div>
+
+                        <!-- Buttons Group -->
+                        <div style="display: flex; gap: 0.75rem; margin-top: 1.5rem;">
+                            <button type="button" id="btn-generate-caption" class="btn btn-primary" style="flex: 2;">
+                                <span>⚡ Generate 5 Captions</span>
+                            </button>
+                            <button type="button" id="btn-clear-generator" class="btn btn-secondary" style="flex: 1;">
+                                Clear
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Result Output Panel -->
+                    <div class="glass-card result-panel">
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <h3 style="font-size: 1.15rem;">Generated Captions</h3>
+                                <span id="results-count-badge" class="badge badge-category" style="display: none;">5 Options</span>
+                            </div>
+                            <span id="generation-topic-badge" style="font-size: 0.8125rem; color: var(--text-muted);">Ready to synthesize</span>
+                        </div>
+
+                        <!-- Initial Placeholder -->
+                        <div id="result-initial-placeholder" class="output-box" style="text-align: center; padding: 2.5rem 1.25rem;">
+                            <div style="font-size: 2.25rem; margin-bottom: 0.6rem;">✨</div>
+                            <h4 style="font-size: 1.1rem; margin-bottom: 0.45rem; color: #ffffff;">5 Distinct Topic-Aware Captions</h4>
+                            <p style="font-size: 0.875rem; color: var(--text-muted); max-width: 360px; margin: 0 auto;">
+                                Enter your specific topic (e.g. <em>New Gym Opening</em>, <em>iPhone 17</em>, <em>Coffee Shop</em>), pick platform & tone, and click <strong>Generate</strong> to create 5 unique variations at once.
+                            </p>
+                        </div>
+
+                        <!-- Loading Shimmer State -->
+                        <div id="results-loading" style="display: none;" class="caption-options-container">
+                            <div class="skeleton-card">
+                                <div class="skeleton-line short"></div>
+                                <div class="skeleton-line long"></div>
+                                <div class="skeleton-line medium"></div>
+                            </div>
+                            <div class="skeleton-card">
+                                <div class="skeleton-line short"></div>
+                                <div class="skeleton-line long"></div>
+                                <div class="skeleton-line medium"></div>
+                            </div>
+                            <div class="skeleton-card">
+                                <div class="skeleton-line short"></div>
+                                <div class="skeleton-line long"></div>
+                                <div class="skeleton-line medium"></div>
+                            </div>
+                        </div>
+
+                        <!-- 5 Options Cards Container -->
+                        <div id="caption-options-list" class="caption-options-container"></div>
+
+                        <!-- Generate More Button -->
+                        <div id="generate-more-wrapper" style="display: none;">
+                            <button type="button" id="btn-generate-more" class="btn-generate-more">
+                                <span>✨ Generate More (5 New Unique Captions)</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 2: My Captions Library -->
+                <div id="library" class="page-header-bar" style="padding-top: 1.5rem; border-top: 1px solid var(--border-subtle);">
+                    <div>
+                        <div style="display: flex; align-items: center; gap: 0.75rem;">
+                            <h2 style="font-size: 1.75rem; margin-bottom: 0.25rem;">My Captions Library</h2>
+                            <span id="caption-count-badge" class="badge badge-category" style="font-size: 0.8125rem;">0 captions</span>
+                        </div>
+                        <p class="page-subtitle">Organize, search, favorite, and copy your catalog of saved captions.</p>
+                    </div>
+                </div>
+
+                <!-- Filters and Search Toolbar -->
+                <div class="filter-bar">
+                    <div class="search-input-wrapper">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" id="search-captions" class="form-input" placeholder="Search by topic, keyword, or text content...">
+                    </div>
+
+                    <div style="min-width: 160px;">
+                        <select id="filter-platform" class="form-select">
+                            <option value="all">All Platforms</option>
+                            <option value="Instagram">Instagram</option>
+                            <option value="LinkedIn">LinkedIn</option>
+                            <option value="Twitter/X">Twitter/X</option>
+                            <option value="YouTube">YouTube</option>
+                            <option value="Facebook">Facebook</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="form-checkbox-label" style="background: rgba(255,255,255,0.03); padding: 0.65rem 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+                            <input type="checkbox" id="filter-fav-only" class="form-checkbox">
+                            <span>Favorites Only</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Captions Grid -->
+                <div id="captions-list" class="cards-grid">
+                    <div style="color: var(--text-muted); font-size: 0.875rem;">Loading captions...</div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Edit Caption Modal -->
+    <div id="edit-caption-modal" class="modal-backdrop">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3>Edit Caption</h3>
+                <button type="button" class="modal-close" onclick="closeEditCaptionModal()">&times;</button>
+            </div>
+            <form id="edit-caption-form">
+                <input type="hidden" id="edit-caption-id">
+                
+                <div class="form-group">
+                    <label class="form-label" for="edit-caption-topic">Topic</label>
+                    <input type="text" id="edit-caption-topic" class="form-input" required>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label class="form-label" for="edit-caption-platform">Platform</label>
+                        <select id="edit-caption-platform" class="form-select">
+                            <option value="Instagram">Instagram</option>
+                            <option value="LinkedIn">LinkedIn</option>
+                            <option value="Twitter/X">Twitter/X</option>
+                            <option value="YouTube">YouTube</option>
+                            <option value="Facebook">Facebook</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="edit-caption-tone">Tone</label>
+                        <select id="edit-caption-tone" class="form-select">
+                            <option value="Professional">Professional</option>
+                            <option value="Funny">Funny</option>
+                            <option value="Emotional">Emotional</option>
+                            <option value="Motivational">Motivational</option>
+                            <option value="Casual">Casual</option>
+                            <option value="Luxury">Luxury</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="edit-caption-content">Content</label>
+                    <textarea id="edit-caption-content" class="form-textarea" rows="6" required></textarea>
+                </div>
+
+                <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.5rem;">
+                    <button type="button" class="btn btn-secondary" onclick="closeEditCaptionModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notifications Container -->
+    <div id="toast-container"></div>
+
+    <script src="js/theme.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/captions.js"></script>
+</body>
+</html>

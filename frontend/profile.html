@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile & Account - Caption & Chapter Studio</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <script>
+        (function() {
+            try {
+                const saved = localStorage.getItem('theme');
+                const theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+                document.documentElement.setAttribute('data-theme', theme);
+            } catch (e) {}
+        })();
+    </script>
+</head>
+<body>
+
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="app-sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="brand-logo">
+                    <div class="brand-icon">✨</div>
+                    <span style="font-size: 1.1rem;">C&C <span class="gradient-text">Studio</span></span>
+                </a>
+            </div>
+
+            <div class="sidebar-nav">
+                <span class="nav-section-title">Workspace</span>
+                <a href="dashboard.html" class="sidebar-link">
+                    <span class="sidebar-icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="captions.html" class="sidebar-link">
+                    <span class="sidebar-icon">⚡</span>
+                    <span>Caption Generator</span>
+                </a>
+                <a href="chapters.html" class="sidebar-link">
+                    <span class="sidebar-icon">✍️</span>
+                    <span>Chapter Writer</span>
+                </a>
+
+                <span class="nav-section-title">My Content</span>
+                <a href="captions.html#library" class="sidebar-link">
+                    <span class="sidebar-icon">💬</span>
+                    <span>My Captions</span>
+                </a>
+                <a href="chapters.html#library" class="sidebar-link">
+                    <span class="sidebar-icon">📚</span>
+                    <span>My Chapters</span>
+                </a>
+                <a href="favorites.html" class="sidebar-link">
+                    <span class="sidebar-icon">⭐</span>
+                    <span>Favorites</span>
+                </a>
+
+                <span class="nav-section-title">Settings</span>
+                <a href="profile.html" class="sidebar-link active">
+                    <span class="sidebar-icon">👤</span>
+                    <span>Profile & Account</span>
+                </a>
+                <a href="javascript:void(0)" class="sidebar-link btn-logout-action">
+                    <span class="sidebar-icon">🚪</span>
+                    <span>Sign Out</span>
+                </a>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="user-snippet">
+                    <div class="user-avatar">CC</div>
+                    <div class="user-info-text">
+                        <div class="user-info-name">Loading...</div>
+                        <div class="user-info-role">Creator Studio</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Body -->
+        <div class="app-main">
+            <!-- Topbar -->
+            <header class="app-topbar">
+                <div class="topbar-left">
+                    <button class="hamburger-btn" aria-label="Toggle Navigation">☰</button>
+                    <h1 class="topbar-title">Account Settings</h1>
+                </div>
+
+                <div class="topbar-right">
+                    <button type="button" class="theme-toggle-btn" aria-label="Toggle dark and light mode" title="Switch theme">
+                        <div class="theme-toggle-track">
+                            <span class="theme-icon">☀️</span>
+                            <span class="theme-icon">🌙</span>
+                            <span class="theme-toggle-thumb"></span>
+                        </div>
+                        <span class="theme-toggle-label">Dark Mode</span>
+                    </button>
+                    <button type="button" class="btn btn-danger btn-sm btn-logout-action">Sign Out</button>
+                    <div class="user-avatar">CC</div>
+                </div>
+            </header>
+
+            <main class="app-content">
+                <div class="page-header-bar">
+                    <div>
+                        <h2 style="font-size: 1.75rem; margin-bottom: 0.25rem;">Creator Profile</h2>
+                        <p class="page-subtitle">Manage your credentials, view portfolio metrics, and configure your account.</p>
+                    </div>
+                </div>
+
+                <!-- Profile Overview Header Card -->
+                <div class="glass-card" style="padding: 2rem; border-radius: var(--radius-xl); margin-bottom: 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem;">
+                    <div style="display: flex; align-items: center; gap: 1.5rem;">
+                        <div class="user-avatar" style="width: 4.5rem; height: 4.5rem; font-size: 1.75rem;">CC</div>
+                        <div>
+                            <h3 id="profile-display-name" style="font-size: 1.5rem; margin-bottom: 0.25rem;">Creator Name</h3>
+                            <p id="profile-display-email" style="font-size: 0.9375rem; color: var(--text-secondary); margin-bottom: 0.35rem;">user@example.com</p>
+                            <span style="font-size: 0.8125rem; color: var(--text-muted);">
+                                Member Since: <strong id="profile-display-date" style="color: #c7d2fe;">Loading...</strong>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 1.5rem; text-align: center;">
+                        <div style="background: rgba(255,255,255,0.03); padding: 0.75rem 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+                            <div id="profile-stat-captions" style="font-size: 1.5rem; font-weight: 800; color: #818cf8;">0</div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Captions</div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.03); padding: 0.75rem 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+                            <div id="profile-stat-chapters" style="font-size: 1.5rem; font-weight: 800; color: #38bdf8;">0</div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Chapters</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Edit Profile Form -->
+                <div class="glass-card" style="padding: 2.25rem; border-radius: var(--radius-xl); max-width: 750px;">
+                    <h3 style="font-size: 1.25rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border-subtle); padding-bottom: 0.85rem;">
+                        Edit Account Details
+                    </h3>
+
+                    <form id="profile-form">
+                        <div class="form-group">
+                            <label class="form-label" for="edit-name">Full Name</label>
+                            <input type="text" id="edit-name" class="form-input" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="edit-email">Email Address</label>
+                            <input type="email" id="edit-email" class="form-input" required>
+                        </div>
+
+                        <h4 style="font-size: 1.05rem; margin: 2rem 0 1rem; color: var(--text-primary);">Change Password (Optional)</h4>
+
+                        <div class="form-group">
+                            <label class="form-label" for="current-password">Current Password</label>
+                            <input type="password" id="current-password" class="form-input" placeholder="Required only if changing password">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="new-password">New Password</label>
+                            <input type="password" id="new-password" class="form-input" placeholder="At least 6 characters" minlength="6">
+                        </div>
+
+                        <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 2rem;">
+                            <button type="submit" id="btn-save-profile" class="btn btn-primary">
+                                Save Profile Changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Theme & Appearance Settings Card -->
+                <div class="glass-card" style="padding: 2.25rem; border-radius: var(--radius-xl); max-width: 750px; margin-top: 1.5rem;">
+                    <h3 style="font-size: 1.25rem; margin-bottom: 0.75rem; border-bottom: 1px solid var(--border-subtle); padding-bottom: 0.85rem;">
+                        Theme & Appearance
+                    </h3>
+                    <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1.25rem;">
+                        Customize your visual experience. Preferences are saved automatically to your browser.
+                    </p>
+                    <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; padding: 1rem 1.25rem; background: var(--input-bg); border: 1px solid var(--border-subtle); border-radius: var(--radius-md);">
+                        <div>
+                            <div style="font-weight: 600; font-size: 0.95rem; color: var(--text-primary);">Interface Theme</div>
+                            <div style="font-size: 0.8125rem; color: var(--text-muted);">Switch seamlessly between Dark Mode and Light Mode</div>
+                        </div>
+                        <button type="button" class="theme-toggle-btn" aria-label="Toggle dark and light mode" title="Switch theme">
+                            <div class="theme-toggle-track">
+                                <span class="theme-icon">☀️</span>
+                                <span class="theme-icon">🌙</span>
+                                <span class="theme-toggle-thumb"></span>
+                            </div>
+                            <span class="theme-toggle-label">Dark Mode</span>
+                        </button>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Toast Notifications Container -->
+    <div id="toast-container"></div>
+
+    <script src="js/theme.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (!requireAuth()) return;
+
+            await loadProfileData();
+            setupProfileForm();
+        });
+
+        async function loadProfileData() {
+            try {
+                const [userRes, statsRes] = await Promise.all([
+                    apiCall('/auth/me', 'GET'),
+                    apiCall('/dashboard/stats', 'GET')
+                ]);
+
+                if (userRes.success && userRes.data) {
+                    const u = userRes.data;
+                    document.getElementById('profile-display-name').textContent = u.name;
+                    document.getElementById('profile-display-email').textContent = u.email;
+                    document.getElementById('profile-display-date').textContent = u.createdAt 
+                        ? new Date(u.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+                        : 'Active Member';
+
+                    document.getElementById('edit-name').value = u.name;
+                    document.getElementById('edit-email').value = u.email;
+                }
+
+                if (statsRes.success && statsRes.data) {
+                    document.getElementById('profile-stat-captions').textContent = statsRes.data.totalCaptions || 0;
+                    document.getElementById('profile-stat-chapters').textContent = statsRes.data.totalChapters || 0;
+                }
+            } catch (err) {
+                console.error(err);
+                showToast('Failed to load profile details', 'error');
+            }
+        }
+
+        function setupProfileForm() {
+            const form = document.getElementById('profile-form');
+            const submitBtn = document.getElementById('btn-save-profile');
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const name = document.getElementById('edit-name').value.trim();
+                const email = document.getElementById('edit-email').value.trim();
+                const currentPassword = document.getElementById('current-password').value;
+                const newPassword = document.getElementById('new-password').value;
+
+                if (!name || !email) {
+                    showToast('Name and email are required', 'warning');
+                    return;
+                }
+
+                if (newPassword && !currentPassword) {
+                    showToast('Current password is required to set a new password', 'warning');
+                    return;
+                }
+
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = `<span>Saving...</span>`;
+
+                try {
+                    const response = await apiCall('/auth/profile', 'PUT', {
+                        name,
+                        email,
+                        currentPassword: currentPassword || null,
+                        newPassword: newPassword || null
+                    });
+
+                    if (response.success && response.data) {
+                        setUser(response.data, true);
+                        showToast('Profile updated successfully!', 'success');
+                        document.getElementById('current-password').value = '';
+                        document.getElementById('new-password').value = '';
+                        await loadProfileData();
+                    }
+                } catch (err) {
+                    showToast(err.message || 'Error updating profile', 'error');
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = `<span>Save Profile Changes</span>`;
+                }
+            });
+        }
+    </script>
+</body>
+</html>

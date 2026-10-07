@@ -1,0 +1,33 @@
+-- Schema for H2 / MySQL auto initialization if enabled
+CREATE TABLE IF NOT EXISTS users (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(150) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS captions (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    user_id BIGINT NOT NULL,
+    topic VARCHAR(255) NOT NULL,
+    platform VARCHAR(50) NOT NULL,
+    tone VARCHAR(50) NOT NULL,
+    content TEXT NOT NULL,
+    favorite BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_captions_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS chapters (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    user_id BIGINT NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    category VARCHAR(100) NOT NULL,
+    description TEXT,
+    content CLOB NOT NULL,
+    favorite BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_chapters_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);

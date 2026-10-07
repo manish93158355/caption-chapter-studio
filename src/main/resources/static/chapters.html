@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter Writer & Reader - Caption & Chapter Studio</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <script>
+        (function() {
+            try {
+                const saved = localStorage.getItem('theme');
+                const theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+                document.documentElement.setAttribute('data-theme', theme);
+            } catch (e) {}
+        })();
+    </script>
+</head>
+<body>
+
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="app-sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="brand-logo">
+                    <div class="brand-icon">✨</div>
+                    <span style="font-size: 1.1rem;">C&C <span class="gradient-text">Studio</span></span>
+                </a>
+            </div>
+
+            <div class="sidebar-nav">
+                <span class="nav-section-title">Workspace</span>
+                <a href="dashboard.html" class="sidebar-link">
+                    <span class="sidebar-icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="captions.html" class="sidebar-link">
+                    <span class="sidebar-icon">⚡</span>
+                    <span>Caption Generator</span>
+                </a>
+                <a href="chapters.html" class="sidebar-link active">
+                    <span class="sidebar-icon">✍️</span>
+                    <span>Chapter Writer</span>
+                </a>
+
+                <span class="nav-section-title">My Content</span>
+                <a href="captions.html#library" class="sidebar-link">
+                    <span class="sidebar-icon">💬</span>
+                    <span>My Captions</span>
+                </a>
+                <a href="#library" class="sidebar-link">
+                    <span class="sidebar-icon">📚</span>
+                    <span>My Chapters</span>
+                </a>
+                <a href="favorites.html" class="sidebar-link">
+                    <span class="sidebar-icon">⭐</span>
+                    <span>Favorites</span>
+                </a>
+
+                <span class="nav-section-title">Settings</span>
+                <a href="profile.html" class="sidebar-link">
+                    <span class="sidebar-icon">👤</span>
+                    <span>Profile & Account</span>
+                </a>
+                <a href="javascript:void(0)" class="sidebar-link btn-logout-action">
+                    <span class="sidebar-icon">🚪</span>
+                    <span>Sign Out</span>
+                </a>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="user-snippet">
+                    <div class="user-avatar">CC</div>
+                    <div class="user-info-text">
+                        <div class="user-info-name">Loading...</div>
+                        <div class="user-info-role">Creator Studio</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Body -->
+        <div class="app-main">
+            <!-- Topbar -->
+            <header class="app-topbar">
+                <div class="topbar-left">
+                    <button class="hamburger-btn" aria-label="Toggle Navigation">☰</button>
+                    <h1 class="topbar-title">Chapter Writer</h1>
+                </div>
+
+                <div class="topbar-right">
+                    <button type="button" class="theme-toggle-btn" aria-label="Toggle dark and light mode" title="Switch theme">
+                        <div class="theme-toggle-track">
+                            <span class="theme-icon">☀️</span>
+                            <span class="theme-icon">🌙</span>
+                            <span class="theme-toggle-thumb"></span>
+                        </div>
+                        <span class="theme-toggle-label">Dark Mode</span>
+                    </button>
+                    <a href="#library" class="btn btn-secondary btn-sm">Jump to Library ↓</a>
+                    <div class="user-avatar" style="cursor: pointer;" onclick="window.location.href='profile.html'">CC</div>
+                </div>
+            </header>
+
+            <main class="app-content">
+                <!-- Section 1: Writer Surface -->
+                <div class="page-header-bar" id="chapter-editor-container">
+                    <div>
+                        <div style="display: flex; align-items: center; gap: 0.75rem;">
+                            <h2 style="font-size: 1.75rem; margin-bottom: 0.25rem;">Long-Form Chapter Studio</h2>
+                            <span id="editor-status-mode" class="badge badge-category" style="font-size: 0.8125rem;">New Chapter</span>
+                        </div>
+                        <p class="page-subtitle">Author deep articles, essays, book chapters, and scripts in a distraction-free environment.</p>
+                    </div>
+                </div>
+
+                <div class="editor-shell">
+                    <div style="padding: 1.5rem 1.75rem 0.5rem; display: grid; grid-template-columns: 2fr 1fr; gap: 1.25rem;">
+                        <div class="form-group" style="margin-bottom: 0.75rem;">
+                            <label class="form-label" for="chapter-title">Chapter Title</label>
+                            <input type="text" id="chapter-title" class="form-input" placeholder="e.g. Chapter 1: The Foundations of Digital Narrative" required>
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 0.75rem;">
+                            <label class="form-label" for="chapter-category">Category / Topic</label>
+                            <input type="text" id="chapter-category" class="form-input" placeholder="e.g. Technology, Business, Essay..." list="category-suggestions">
+                            <datalist id="category-suggestions">
+                                <option value="Technology">
+                                <option value="Business Strategy">
+                                <option value="Content Strategy">
+                                <option value="Fiction">
+                                <option value="Self-Improvement">
+                                <option value="Marketing">
+                            </datalist>
+                        </div>
+                    </div>
+
+                    <div style="padding: 0 1.75rem 1rem;">
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label class="form-label" for="chapter-description">Short Summary / Thesis (Optional)</label>
+                            <input type="text" id="chapter-description" class="form-input" placeholder="Brief 1-sentence synopsis of what this chapter covers...">
+                        </div>
+                    </div>
+
+                    <!-- WYSIWYG Formatting Toolbar -->
+                    <div class="editor-toolbar">
+                        <button type="button" class="toolbar-btn" data-command="bold" title="Bold (Ctrl+B)"><b>B</b></button>
+                        <button type="button" class="toolbar-btn" data-command="italic" title="Italic (Ctrl+I)"><i>I</i></button>
+                        <button type="button" class="toolbar-btn" data-command="underline" title="Underline (Ctrl+U)"><u>U</u></button>
+                        
+                        <div class="toolbar-divider"></div>
+
+                        <button type="button" class="toolbar-btn" data-command="formatBlock" data-arg="h2" title="Heading 2">H2</button>
+                        <button type="button" class="toolbar-btn" data-command="formatBlock" data-arg="h3" title="Heading 3">H3</button>
+                        <button type="button" class="toolbar-btn" data-command="formatBlock" data-arg="p" title="Paragraph">¶</button>
+
+                        <div class="toolbar-divider"></div>
+
+                        <button type="button" class="toolbar-btn" data-command="insertUnorderedList" title="Bullet List">•≡</button>
+                        <button type="button" class="toolbar-btn" data-command="insertOrderedList" title="Numbered List">1.≡</button>
+                        <button type="button" class="toolbar-btn" data-command="formatBlock" data-arg="blockquote" title="Quote">❝</button>
+
+                        <div class="toolbar-divider"></div>
+
+                        <button type="button" class="toolbar-btn" data-command="removeFormat" title="Clear Formatting">✕</button>
+                    </div>
+
+                    <!-- Content Editable Surface -->
+                    <div id="chapter-editor" class="editor-surface" contenteditable="true" data-placeholder="Begin writing your chapter here. Share insights, build narratives, and format with headings..."></div>
+
+                    <!-- Metrics and Action Bar -->
+                    <div class="editor-metrics-bar">
+                        <div style="display: flex; gap: 1rem; align-items: center;">
+                            <span id="editor-word-count">0 words</span> • 
+                            <span id="editor-char-count">0 characters</span> • 
+                            <span id="editor-read-time">~0 min read</span>
+                        </div>
+
+                        <div style="display: flex; gap: 0.75rem;">
+                            <button type="button" id="btn-clear-chapter" class="btn btn-secondary btn-sm">Clear Editor</button>
+                            <button type="button" id="btn-save-chapter" class="btn btn-primary btn-sm">Save Chapter</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 2: Chapters Library -->
+                <div id="library" class="page-header-bar" style="padding-top: 1.5rem; border-top: 1px solid var(--border-subtle);">
+                    <div>
+                        <div style="display: flex; align-items: center; gap: 0.75rem;">
+                            <h2 style="font-size: 1.75rem; margin-bottom: 0.25rem;">My Chapters Library</h2>
+                            <span id="chapters-count-badge" class="badge badge-category" style="font-size: 0.8125rem;">0 chapters</span>
+                        </div>
+                        <p class="page-subtitle">Your collection of structured chapters and manuscripts.</p>
+                    </div>
+                </div>
+
+                <!-- Filter Bar -->
+                <div class="filter-bar">
+                    <div class="search-input-wrapper">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" id="search-chapters" class="form-input" placeholder="Search chapters by title, category, or content...">
+                    </div>
+
+                    <div style="min-width: 180px;">
+                        <select id="filter-category" class="form-select">
+                            <option value="all">All Categories</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="form-checkbox-label" style="background: rgba(255,255,255,0.03); padding: 0.65rem 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+                            <input type="checkbox" id="filter-chapter-fav-only" class="form-checkbox">
+                            <span>Favorites Only</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Chapters Grid -->
+                <div id="chapters-list" class="cards-grid">
+                    <div style="color: var(--text-muted); font-size: 0.875rem;">Loading chapters...</div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Chapter Reader Modal -->
+    <div id="chapter-reader-modal" class="modal-backdrop">
+        <div class="modal-container" style="max-width: 800px;">
+            <div class="modal-header">
+                <div>
+                    <span id="reader-category" class="badge badge-category" style="margin-bottom: 0.35rem;">Category</span>
+                    <h2 id="reader-title" style="font-size: 1.65rem; color: var(--text-primary);">Chapter Title</h2>
+                    <span id="reader-date" style="font-size: 0.8125rem; color: var(--text-muted);">Date</span>
+                </div>
+                <button type="button" class="modal-close" onclick="closeChapterReaderModal()">&times;</button>
+            </div>
+
+            <div id="reader-content" style="line-height: 1.8; font-size: 1.05rem; color: var(--text-primary); margin-top: 1.5rem; border-top: 1px solid var(--border-subtle); padding-top: 1.5rem;">
+                <!-- Chapter Content renders here -->
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; margin-top: 2rem;">
+                <button type="button" class="btn btn-secondary" onclick="closeChapterReaderModal()">Close Reader</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications Container -->
+    <div id="toast-container"></div>
+
+    <script src="js/theme.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/chapters.js"></script>
+</body>
+</html>
